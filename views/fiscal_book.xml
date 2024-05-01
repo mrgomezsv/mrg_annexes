@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="view_fiscal_book_form_inherit" model="ir.ui.view">
+            <field name="name">fiscal.book.form.inherit</field>
+            <field name="model">fiscal.book</field>
+            <field name="inherit_id" ref="treming_sv_fiscal.fiscal_book_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_ids']" position="after">
+                    <field name="dte_annexes"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

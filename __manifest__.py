@@ -3,11 +3,12 @@
     'name': "Anexos",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Agrega opcion para habilitar o desabilitar campos dte en anexos""",
 
     'description': """
-        Long description of module's purpose
+        Coloca un campo en el Libro de Ventas/Compras con el cual se habilita 
+        o desabilitar campo que agrega o quita las columnas de datos del DET 
+        en los archivos descargables de Anexos y Sujetos Excluidos
     """,
 
     'author': "Mario Roberto",
@@ -19,7 +20,6 @@
     'depends': ['base', 'account', 'treming_sv_dte', 'treming_sv_fiscal_f07', 'treming_sv_fiscal'],
 
     'data': [
-        'views/views.xml',
-        'views/templates.xml',
+        'views/fiscal_book.xml',
     ],
 }
