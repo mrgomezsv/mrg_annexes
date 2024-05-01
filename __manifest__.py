@@ -13,7 +13,7 @@
     'author': "Mario Roberto",
     'website': "https://mrgomezsv.github.io/",
 
-    'category': 'Uncategorized',
+    'category': 'Accounting/Accounting',
     'version': '0.1',
 
     'depends': ['base', 'account', 'treming_sv_dte', 'treming_sv_fiscal_f07', 'treming_sv_fiscal'],
@@ -21,9 +21,5 @@
     'data': [
         'views/views.xml',
         'views/templates.xml',
-    ],
-
-    'demo': [
-        'demo/demo.xml',
     ],
 }
