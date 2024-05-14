@@ -88,3 +88,56 @@ class FiscalBook(models.Model):
                 'csv_filename': "Anexo_Consumidor_Final.csv",
             })
         return True
+
+    def generate_csv_taxp(self):
+        for rec in self:
+            rows = rec.csv_taxpayer_lines()
+            row = ""
+            for line in rows:
+                # Fecha documento
+                row += self.csv_delimiter_tr.format(line.get('doc_date', ""))
+                # Clase de documento
+                row += self.csv_delimiter_tr.format(line.get('class_document', ""))
+                # Tipo de documento
+                row += self.csv_delimiter_tr.format(line.get('type_document', ""))
+                # No. Resolucion/No interno DEL/
+                row += self.csv_delimiter_tr.format(line.get('resolution', ""))
+                # Serie de documento
+                row += self.csv_delimiter_tr.format(line.get('serie', ""))
+                # No. de documento
+                row += self.csv_delimiter_tr.format(line.get('doc_number', ""))
+                # No. Interno de documento
+                row += self.csv_delimiter_tr.format(line.get('doc_number', ""))
+                # No. Interno de documento
+                row += self.csv_delimiter_tr.format(line.get('nit', ""))
+                # Razon social del cliente
+                row += self.csv_delimiter_tr.format(line.get('customer', ""))
+                # Ventas Exentas
+                row += self.csv_delimiter_tr.format(line.get('exempt', 0.00))
+                # Ventas no sujetas
+                row += self.csv_delimiter_tr.format(line.get('nosubject', 0.00))
+                # Ventas Gravadas local
+                row += self.csv_delimiter_tr.format(line.get('taxed_internal', 0.00))
+                # Debito fiscal
+                row += self.csv_delimiter_tr.format(line.get('fiscal_debit', 0.00))
+                # Ventas a cuentas de terceros no domiciliados
+                row += self.csv_delimiter_tr.format(0.00)
+                # Debito fiscal no domiciliados
+                row += self.csv_delimiter_tr.format(0.00)
+                if rec.dte_annexes:  # Agrega las siguientes líneas solo si dte_annexes es True
+                    # Agregar campos de account.move DTE
+                    row += self.csv_delimiter_tr.format(line.get('dte_uuid_tr', "") or '')
+                    row += self.csv_delimiter_tr.format(line.get('dte_received_stamp_tr', "") or '')
+                    row += self.csv_delimiter_tr.format(line.get('dte_received_state_tr', "") or '')
+                # Total
+                row += self.csv_delimiter_tr.format(line.get('total', 0.00))
+                # DUI
+                row += self.csv_delimiter_tr.format(line.get('dui', ""))
+                # No. Anexo
+                row += "{}\n".format(1)
+            txt_file = base64.encodebytes(row.encode(self.csv_encoding_tr))
+            rec.write({
+                'csv_file': txt_file,
+                'csv_filename': "Anexo_Contribuyentes.csv",
+            })
+        return True
