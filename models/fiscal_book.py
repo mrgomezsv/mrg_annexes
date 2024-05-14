@@ -1,27 +1,18 @@
 # -*- coding: utf-8 -*-
-import base64
+
 from odoo import models, fields, api
-import logging
-
-
-_logger = logging.getLogger(__name__)
+from odoo.exceptions import UserError
 
 class FiscalBook(models.Model):
     _inherit = 'fiscal.book'
 
     dte_annexes = fields.Boolean(string="DTE en Anexos")
 
-    @api.onchange('dte_annexes')
-    def _onchange_dte_annexes(self):
-        if self.dte_annexes:
-            _logger.info("El campo dte_annexes se ha activado y su valor es True")
-            self.add_alert("DTE en anexos esta en True")
-            # Devuelve False para desactivar el campo dte_annexes
-            return {'value': False}
-        else:
-            _logger.info("El campo dte_annexes se ha desactivado y su valor es False")
-            self.add_alert("DTE en anexos esta en False")
-            return {}
+    # @api.onchange('dte_annexes')
+    # def _onchange_dte_annexes(self):
+    #     if self.dte_annexes:
+    #         # Lanza una alerta en el navegador
+    #         raise UserError("DTE en Anexos está activado. ¡Atención!")
 
 
 
