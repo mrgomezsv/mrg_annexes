@@ -14,7 +14,21 @@ class FiscalBook(models.Model):
     #         # Lanza una alerta en el navegador
     #         raise UserError("DTE en Anexos está activado. ¡Atención!")
 
+    def get_resolution_line(self, invoice_id, comp_date=False):
+        if not comp_date:
+            comp_date = invoice_id.invoice_date
 
+        lines = invoice_id.doc_type_id.journal_id.doc_resolution_ids.filtered(
+            lambda x: x.doc_type_id.id == invoice_id.doc_type_id.id and (
+                    x.sequence_id.prefix or '') in invoice_id.name and x.auth_date <= comp_date)
+        doc_number = ""
+        target = None  # Valor por defecto
+        if lines:
+            sorted_lines = lines.sorted(key=lambda x: x.auth_date, reverse=True)
+            target = sorted_lines[0]
+            doc_number = invoice_id.name.replace(target.sequence_id.prefix, "")
+
+        return sorted_lines, target, doc_number
 
     def generate_csv_sale(self):
         consumer_types = self.company_id.doc_type_cons_ids.ids
