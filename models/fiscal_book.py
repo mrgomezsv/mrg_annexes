@@ -23,6 +23,7 @@ class FiscalBook(models.Model):
                     x.sequence_id.prefix or '') in invoice_id.name and x.auth_date <= comp_date)
         doc_number = ""
         target = None  # Valor por defecto
+        sorted_lines = False
         if lines:
             sorted_lines = lines.sorted(key=lambda x: x.auth_date, reverse=True)
             target = sorted_lines[0]
