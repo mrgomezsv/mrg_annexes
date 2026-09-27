@@ -15,11 +15,13 @@
     'website': "https://mrgomezsv.github.io/",
 
     'category': 'Accounting/Accounting',
-    'version': '0.1',
+    'version': '18.0.1.0.0',
+    'license': 'LGPL-3',
 
     'depends': ['base', 'account', 'treming_sv_dte', 'treming_sv_fiscal_f07', 'treming_sv_fiscal'],
 
     'data': [
         'views/fiscal_book.xml',
     ],
+    'installable': True,
 }
