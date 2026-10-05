@@ -24,4 +24,6 @@
         'views/fiscal_book.xml',
     ],
     'installable': True,
+    'application': False,
+    'auto_install': False,
 }
